@@ -38,9 +38,9 @@ bool RemoteControlCodeEnabled = true;
 //----------------------------------------------------------------------------
 //                                                                            
 //    Module:       main.cpp                                                  
-//    Author:       {author}                                                  
-//    Created:      {date}                                                    
-//    Description:  IQ project                                                
+//    Author:       Kieran Sherman                                                  
+//    Created:      3/31/2022                                                    
+//    Description:  VEX IQ driver recording program                                                
 //                                                                            
 //----------------------------------------------------------------------------
 
