@@ -281,12 +281,12 @@ void playBack() {
       if (arr[arrCount] == 16) {
         
         if (arrCount >= arrLen) {
-          // Robot Movement Here
+          replayOn = false;
           arrCount = 0;
         }
         
         waitUntil((arr[arrCount + 1] - recStartTime) < (vex::timer::system() - startTime - latency));
-        Intake.stop();
+        //robot movement here
         arrCount += 2;
       }
       
@@ -294,7 +294,7 @@ void playBack() {
       if (arr[arrCount] == 17) {
         
         if (arrCount >= arrLen) {
-          // Robot Movement Here
+          replayOn = false;
           arrCount = 0;
         }
         
@@ -307,7 +307,7 @@ void playBack() {
       if (arr[arrCount] == 18) {
         
         if (arrCount >= arrLen) {
-          // Robot Movement Here
+          replayOn = false;
           arrCount = 0;
         }
         
@@ -341,6 +341,59 @@ void playBack() {
         //robot movement here
         arrCount += 2;
       }
+      
+      // Joystick A Up Released
+      if (arr[arrCount] == 21) {
+        
+        if (arrCount >= arrLen) {
+          replayOn = false;
+          arrCount = 0;
+        }
+        
+        waitUntil((arr[arrCount + 1] - recStartTime) < (vex::timer::system() - startTime - latency));
+        //robot movement here
+        arrCount += 2;
+      }
+      
+      // Joystick A Down Released
+      if (arr[arrCount] == 22) {
+        
+        if (arrCount >= arrLen) {
+          replayOn = false;
+          arrCount = 0;
+        }
+        
+        waitUntil((arr[arrCount + 1] - recStartTime) < (vex::timer::system() - startTime - latency));
+        //robot movement here
+        arrCount += 2;
+      }
+      
+      // Joystick D Up Released
+      if (arr[arrCount] == 23) {
+        
+        if (arrCount >= arrLen) {
+          replayOn = false;
+          arrCount = 0;
+        }
+        
+        waitUntil((arr[arrCount + 1] - recStartTime) < (vex::timer::system() - startTime - latency));
+        //robot movement here
+        arrCount += 2;
+      }
+      
+      // Joystick D Down Released
+      if (arr[arrCount] == 24) {
+        
+        if (arrCount >= arrLen) {
+          replayOn = false;
+          arrCount = 0;
+        }
+        
+        waitUntil((arr[arrCount + 1] - recStartTime) < (vex::timer::system() - startTime - latency));
+        //robot movement here
+        arrCount += 2;
+      }
+      
     }
     wait(20,msec);
   }
