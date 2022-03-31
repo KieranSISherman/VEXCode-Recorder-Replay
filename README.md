@@ -1,8 +1,15 @@
 # VEXCode-Recorder-Replay
 
-These programs are designed to record and replay driver movement for VEX IQ robots. 
-There are programs for generation 1 and generation 2 brains.
-The generation 2 programs have more features making it easier to use. 
-The generation 2 programs have interfaces on the brain that you can interact with using the buttons E Up, E Down, F Up, and F Down on the controller. 
-The generation 2 programs allow for saving the recording to a micro SD card in the brain. This feature isn't in thegeneration 1 brains.
-The programs are setup already to fit our current robot.
+These programs are designed to record and replay driver controller inputs. this allows for replaying driver skills matches as programming skills. The following will explain how the codes work, the differences between them, and how to use them.
+
+# Generation 1 Programs
+The generation 1 recording program functions as our normal driver control code would. The difference is that you can push E Up on the controller to start a recording of all the buttons being pressed on the controller. This allows for all movements to be replay later. To end the recording, you press the E Down button on the controller. When the recording has been stopped, it will start printing out all the information to the brain for you to write down. Generation 1 VEX IQ brains can't save data so this is the only way to retrieve the data from the program. 
+
+Once the data has been retrieved from the recording program, you set put the information into the array in the replay code. After importing the data, you want to set the starting time that was first shown on from the recording. If the program skips the first controller inputs when the replay starts, you may need to add a latency by changing the latency varible in the code. You have to go through the code and put in what each button does when its pressed and/or released. Each button is labled on the code and you put the code where it says to input movements. From there, you can download the program and push E Up to run it. You can push E Up to run it again after it has finished.
+
+# Generation 2 Programs
+The generation 2 programs function exactly the same as the generation 1 programs. The only difference is that the generation 2 programs can only be run on VEX IQ generation 2 brains and they have a few more features. The VEX IQ generation 2 brain have a feature to save data to a micro SD card. This allows for easily saving recordings to the brain instead of printing the information, like you have to do with generation 1 brains. 
+
+The generation 2 programs still allow for the information to be printed to the brain as well. After you are done recording, an interface will appear on the screen that allows for you to select which option of data saving you want. You use the buttons E Up and E Down to move the selected option up and down. You press F Up to select that option and F Down to go back. If you are saving to the brain, you get 3 save slot to save your program to.
+
+When replaying, you can enter all the information through the code and download it the same as you would with a generation 1 program. But on the generation 2 program, you can load the information striaght from the brain from one of the three save slots. As soon as the code starts a interface will appear on the screen which allows you to select the options you want. The controller are the same as they are for the recording program. After your options are selected, you press E Up on your controller to start the replay. When it finishes the interface will appear again allowing for you to run the program again or run another program.
