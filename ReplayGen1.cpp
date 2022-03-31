@@ -27,18 +27,12 @@ brain Brain;
 
 
 // Robot configuration code.
-motor LeftDriveSmart = motor(PORT9, 1, false);
-motor RightDriveSmart = motor(PORT3, 1, true);
-drivetrain Drivetrain = drivetrain(LeftDriveSmart, RightDriveSmart, 200, 173, 76, mm, 1);
-motor CatapultMotorA = motor(PORT11, true);
-motor CatapultMotorB = motor(PORT4, false);
-motor_group Catapult = motor_group(CatapultMotorA, CatapultMotorB);
+// Put robot motors, sensors, and motor groups here.
 
-motor IntakeMotorA = motor(PORT10, true);
-motor IntakeMotorB = motor(PORT5, false);
-motor_group Intake = motor_group(IntakeMotorA, IntakeMotorB);
 
-bumper Booty = bumper(PORT6);
+
+// define variable for remote controller enable/disable
+bool RemoteControlCodeEnabled = true;
 #pragma endregion VEXcode Generated Robot Configuration
 
 //----------------------------------------------------------------------------
@@ -62,216 +56,294 @@ int arrCount, arrLen;
 
 float startTime, recStartTime, latency;
 
+// Put information into the curly brackets below
 float arr[] = {};
 
 //add stopping for drivetrain forward and backward
 
+// Function to playback the recording
 void playBack() {
+  
+  //Setting the values of varibles
   recStartTime = 0; //change zero to start time shown in recording program.
   latency = 0; //makes the timer take longer to start.
   arrCount = 0;
   arrLen = sizeof(arr)/sizeof(arr[0]);
+  
   while (true) {
-    if (autoOn) {
-      if (!Booty) {
-        Catapult.spin(forward);
-      }
-      else {
-        if (!catapultSpinning) {
-          Catapult.stop();
-        }
-      }
-    }
+   
+    // Start playback when button E Up is pressed
     if (Controller.ButtonEUp.pressing()) {
       startTime = vex::timer::system();
       arrCount = 0;
       replayOn = true;
     }
+    
+    // Replay the recording is replay is on
     if (replayOn) {
-      if (arr[arrCount] = 1) {
+      
+      // R Up Button pressed
+      if (arr[arrCount] == 1) {
+        
         if (arrCount >= arrLen) {
           replayOn = false;
           arrCount = 0;
         }
-        waitUntil((arr[arrCount + 1] - recStartTime) == (vex::timer::system() - startTime - latency))
-        catapultSpinning = true;
-        Catapult.spin(forward);
+        
+        waitUntil((arr[arrCount + 1] - recStartTime) < (vex::timer::system() - startTime - latency));
+        // Robot Movement Here
         arrCount += 2;
       }
-      if (arr[arrCount] = 2) {
+      
+      // R Down Button Pressed
+      if (arr[arrCount] == 2) {
+        
         if (arrCount >= arrLen) {
           replayOn = false;
           arrCount = 0;
         }
-        waitUntil((arr[arrCount + 1] - recStartTime) == (vex::timer::system() - startTime - latency))
-        Catapult.spin(reverse);
+        
+        waitUntil((arr[arrCount + 1] - recStartTime) < (vex::timer::system() - startTime - latency));
+        // Robot Movement Here
         arrCount += 2;
       }
-      if (arr[arrCount] = 3) {
+      
+      // L Up Button Pressed
+      if (arr[arrCount] == 3) {
+        
         if (arrCount >= arrLen) {
           replayOn = false;
           arrCount = 0;
         }
-        waitUntil((arr[arrCount + 1] - recStartTime) == (vex::timer::system() - startTime - latency))
-        Intake.spin(forward);
+        
+        waitUntil((arr[arrCount + 1] - recStartTime) < (vex::timer::system() - startTime - latency));
+        // Robot Movement Here
         arrCount += 2;
       }
-      if (arr[arrCount] = 4) {
+      
+      // L Down Button Pressed
+      if (arr[arrCount] == 4) {
+        
         if (arrCount >= arrLen) {
           replayOn = false;
           arrCount = 0;
         }
-        waitUntil((arr[arrCount + 1] - recStartTime) == (vex::timer::system() - startTime - latency))
-        Intake.spin(reverse);
+        
+        waitUntil((arr[arrCount + 1] - recStartTime) < (vex::timer::system() - startTime - latency));
+        // Robot Movement Here
         arrCount += 2;
       }
-      if (arr[arrCount] = 5) {
+      
+      // F Up Button Pressed
+      if (arr[arrCount] == 5) {
+        
         if (arrCount >= arrLen) {
           replayOn = false;
           arrCount = 0;
         }
-        waitUntil((arr[arrCount + 1] - recStartTime) == (vex::timer::system() - startTime - latency))
-        autoOn = false;
+        
+        waitUntil((arr[arrCount + 1] - recStartTime) < (vex::timer::system() - startTime - latency));
+        // Robot Movement Here
         arrCount += 2;
       }
-      if (arr[arrCount] = 6) {
+      
+      // F Down Button Pressed
+      if (arr[arrCount] == 6) {
+        
         if (arrCount >= arrLen) {
           replayOn = false;
           arrCount = 0;
         }
-        waitUntil((arr[arrCount + 1] - recStartTime) == (vex::timer::system() - startTime - latency))
-        autoOn = true;
+        
+        waitUntil((arr[arrCount + 1] - recStartTime) < (vex::timer::system() - startTime - latency));
+        // Robot Movement Here
         arrCount += 2;
       }
-      if (arr[arrCount] = 7) {
+      
+      // E Up Button Pressed
+      if (arr[arrCount] == 7) {
+        
         if (arrCount >= arrLen) {
           replayOn = false;
           arrCount = 0;
         }
-       waitUntil((arr[arrCount + 1] - recStartTime) == (vex::timer::system() - startTime - latency))
+        
+       waitUntil((arr[arrCount + 1] - recStartTime) < (vex::timer::system() - startTime - latency));
         //robot movement here
         arrCount += 2;
       }
-      if (arr[arrCount] = 8) {
+      
+      // E Down Button Pressed
+      if (arr[arrCount] == 8) {
+        
         if (arrCount >= arrLen) {
           replayOn = false;
           arrCount = 0;
         }
-        waitUntil((arr[arrCount + 1] - recStartTime) == (vex::timer::system() - startTime - latency))
+        
+        waitUntil((arr[arrCount + 1] - recStartTime) < (vex::timer::system() - startTime - latency));
         //robot movement here
         arrCount += 2;
       }
-      if (arr[arrCount] = 9) {
+      
+      // Joystick A Up True
+      if (arr[arrCount] == 9) {
+        
         if (arrCount >= arrLen) {
           replayOn = false;
           arrCount = 0;
         }
-        waitUntil((arr[arrCount + 1] - recStartTime) == (vex::timer::system() - startTime - latency))
-        LeftDriveSmart.spin(forward);
+        
+        waitUntil((arr[arrCount + 1] - recStartTime) < (vex::timer::system() - startTime - latency));
+        // Robot Movement Here
         arrCount += 2;
       }
-      if (arr[arrCount] = 10) {
+      
+      // Joystick A Down True
+      if (arr[arrCount] == 10) {
+        
         if (arrCount >= arrLen) {
           replayOn = false;
           arrCount = 0;
         }
-        waitUntil((arr[arrCount + 1] - recStartTime) == (vex::timer::system() - startTime - latency))
-        RightDriveSmart.spin(forward);
+        
+        waitUntil((arr[arrCount + 1] - recStartTime) < (vex::timer::system() - startTime - latency));
+        // Robot Movement Here
         arrCount += 2;
       }
-      if (arr[arrCount] = 11) {
+      
+      // Joystick D Up True
+      if (arr[arrCount] == 11) {
+        
         if (arrCount >= arrLen) {
           replayOn = false;
           arrCount = 0;
         }
-        waitUntil((arr[arrCount + 1] - recStartTime) == (vex::timer::system() - startTime - latency))
-        LeftDriveSmart.spin(reverse);
+        
+        waitUntil((arr[arrCount + 1] - recStartTime) < (vex::timer::system() - startTime - latency));
+        // Robot Movement Here
         arrCount += 2;
       }
-      if (arr[arrCount] = 12) {
+      
+      // Joystick D Down True
+      if (arr[arrCount] == 12) {
+        
         if (arrCount >= arrLen) {
           replayOn = false;
           arrCount = 0;
         }
-        waitUntil((arr[arrCount + 1] - recStartTime) == (vex::timer::system() - startTime - latency))
-        RightDriveSmart.spin(reverse);
+        
+        waitUntil((arr[arrCount + 1] - recStartTime) < (vex::timer::system() - startTime - latency));
+        // Robot Movement Here
         arrCount += 2;
       }
-      if (arr[arrCount] = 13) {
+      
+      // R Up Button Released
+      if (arr[arrCount] == 13) {
+        
         if (arrCount >= arrLen) {
           replayOn = false;
           arrCount = 0;
         }
-        waitUntil((arr[arrCount + 1] - recStartTime) == (vex::timer::system() - startTime - latency))
-        catapultSpinning = false;
+        
+        waitUntil((arr[arrCount + 1] - recStartTime) < (vex::timer::system() - startTime - latency));
+        // Robot Movement Here
         arrCount += 2;
       }
-      if (arr[arrCount] = 14) {
+      
+      // R Down Button Released
+      if (arr[arrCount] == 14) {
+        
         if (arrCount >= arrLen) {
           replayOn = false;
           arrCount = 0;
         }
-        waitUntil((arr[arrCount + 1] - recStartTime) == (vex::timer::system() - startTime - latency))
-        Catapult.stop();
+        
+        waitUntil((arr[arrCount + 1] - recStartTime) < (vex::timer::system() - startTime - latency));
+        // Robot Movement Here
         arrCount += 2;
       }
-      if (arr[arrCount] = 15) {
+      
+      // L Up Button Released
+      if (arr[arrCount] == 15) {
+        
         if (arrCount >= arrLen) {
           replayOn = false;
           arrCount = 0;
         }
-        waitUntil((arr[arrCount + 1] - recStartTime) == (vex::timer::system() - startTime - latency))
+        
+        waitUntil((arr[arrCount + 1] - recStartTime) < (vex::timer::system() - startTime - latency));
+        // Robot Movement Here
+        arrCount += 2;
+      }
+      
+      // L Down Button Released
+      if (arr[arrCount] == 16) {
+        
+        if (arrCount >= arrLen) {
+          // Robot Movement Here
+          arrCount = 0;
+        }
+        
+        waitUntil((arr[arrCount + 1] - recStartTime) < (vex::timer::system() - startTime - latency));
         Intake.stop();
         arrCount += 2;
       }
-      if (arr[arrCount] = 16) {
+      
+      // F Up Button Released
+      if (arr[arrCount] == 17) {
+        
         if (arrCount >= arrLen) {
-          replayOn = false;
+          // Robot Movement Here
           arrCount = 0;
         }
-        waitUntil((arr[arrCount + 1] - recStartTime) == (vex::timer::system() - startTime - latency))
-        Intake.stop();
-        arrCount += 2;
-      }
-      if (arr[arrCount] = 17) {
-        if (arrCount >= arrLen) {
-          replayOn = false;
-          arrCount = 0;
-        }
-        waitUntil((arr[arrCount + 1] - recStartTime) == (vex::timer::system() - startTime - latency))
+        
+        waitUntil((arr[arrCount + 1] - recStartTime) < (vex::timer::system() - startTime - latency));
         //robot movement here
         arrCount += 2;
       }
-      if (arr[arrCount] = 18) {
+      
+      // F Down Button Released
+      if (arr[arrCount] == 18) {
+        
         if (arrCount >= arrLen) {
-          replayOn = false;
+          // Robot Movement Here
           arrCount = 0;
         }
-        waitUntil((arr[arrCount + 1] - recStartTime) == (vex::timer::system() - startTime - latency))
+        
+        waitUntil((arr[arrCount + 1] - recStartTime) < (vex::timer::system() - startTime - latency));
         //robot movement here
         arrCount += 2;
       }
-      if (arr[arrCount] = 19) {
+      
+      // E Up Button Released
+      if (arr[arrCount] == 19) {
+        
         if (arrCount >= arrLen) {
           replayOn = false;
           arrCount = 0;
         }
-        waitUntil((arr[arrCount + 1] - recStartTime) == (vex::timer::system() - startTime - latency))
+        
+        waitUntil((arr[arrCount + 1] - recStartTime) < (vex::timer::system() - startTime - latency));
         //robot movement here
         arrCount += 2;
       }
-      if (arr[arrCount] = 20) {
+      
+      // E Down Button Released
+      if (arr[arrCount] == 20) {
+        
         if (arrCount >= arrLen) {
           replayOn = false;
           arrCount = 0;
         }
-        waitUntil((arr[arrCount + 1] - recStartTime) == (vex::timer::system() - startTime - latency))
+        
+        waitUntil((arr[arrCount + 1] - recStartTime) < (vex::timer::system() - startTime - latency));
         //robot movement here
         arrCount += 2;
       }
     }
+    wait(20,msec);
   }
-  return 0;
 }
 
 int main() {
