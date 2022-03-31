@@ -1,6 +1,6 @@
 # VEXCode-Recorder-Replay
 
-These programs are designed to record and replay driver controller inputs. this allows for replaying driver skills matches as programming skills. The following will explain how the codes work, the differences between them, and how to use them.
+These programs are designed to record and replay driver controller inputs. this allows for replaying driver skills matches as programming skills. The following will explain how the codes work, the differences between them, and how to use them. **The codes are still a work in progress**
 
 # Generation 1 Programs
 The generation 1 recording program functions as our normal driver control code would. The difference is that you can push E Up on the controller to start a recording of all the buttons being pressed on the controller. This allows for all movements to be replay later. To end the recording, you press the E Down button on the controller. When the recording has been stopped, it will start printing out all the information to the brain for you to write down. Generation 1 VEX IQ brains can't save data so this is the only way to retrieve the data from the program. 
