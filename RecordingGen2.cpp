@@ -27,20 +27,7 @@ brain Brain;
 
 
 // Robot configuration code.
-inertial BrainInertial = inertial();
-controller Controller = controller();
-motor IntakeMotorA = motor(PORT10, true);
-motor IntakeMotorB = motor(PORT5, false);
-motor_group Intake = motor_group(IntakeMotorA, IntakeMotorB);
-
-motor CatapultMotorA = motor(PORT11, true);
-motor CatapultMotorB = motor(PORT4, false);
-motor_group Catapult = motor_group(CatapultMotorA, CatapultMotorB);
-
-bumper Booty = bumper(PORT6);
-motor LeftDriveSmart = motor(PORT9, 1, false);
-motor RightDriveSmart = motor(PORT3, 1, true);
-drivetrain Drivetrain = drivetrain(LeftDriveSmart, RightDriveSmart, 200, 173, 76, mm, 1);
+// Put robot motors, sensors, and motor groups here
 
 
 
@@ -63,7 +50,7 @@ bool RemoteControlCodeEnabled = true;
 // Allows for easier use of the VEX Library
 using namespace vex;
 
-//Initiating Variables
+//Initilizing Variables
 int Brain_precision = 0;
 
 float timePoint, startTime;
@@ -72,11 +59,10 @@ int arrCount, arrCounter, select2;
 
 bool rec, autoOn, started, select1, buttonEnable1, save;
 
-float arr[370] = {}, arr2[370] = {};
+float arr[370] = {}, arr2[370] = {}, arr3[370] = {};
 
 //When controller button R Up is pressed
 void onevent_ControllerButtonRUp_pressed_0() {
-  Catapult.spin(forward);
   if (rec) {
     timePoint = vex::timer::system();
     arr[arrCount] = 1;
@@ -86,6 +72,7 @@ void onevent_ControllerButtonRUp_pressed_0() {
   }
 }
 
+//When controller button R Up is released
 void onevent_ControllerButtonRUp_released_0() {
   if (rec) {
     timePoint = vex::timer::system();
@@ -96,6 +83,7 @@ void onevent_ControllerButtonRUp_released_0() {
   }
 }
 
+//When controller button R Down is pressed
 void onevent_ControllerButtonRDown_pressed_0() {
   if (rec) {
     timePoint = vex::timer::system();
@@ -106,6 +94,7 @@ void onevent_ControllerButtonRDown_pressed_0() {
   }
 }
 
+//When controller Button R Down is released
 void onevent_ControllerButtonRDown_released_0() {
   if (rec) {
     timePoint = vex::timer::system();
@@ -116,6 +105,7 @@ void onevent_ControllerButtonRDown_released_0() {
   }
 }
 
+//When controller L Up is pressed
 void onevent_ControllerButtonLUp_pressed_0() {
   if (rec) {
     timePoint = vex::timer::system();
@@ -126,6 +116,7 @@ void onevent_ControllerButtonLUp_pressed_0() {
   }
 }
 
+//When controller L Up is released
 void onevent_ControllerButtonLUp_released_0() {
   if (rec) {
     timePoint = vex::timer::system();
@@ -136,6 +127,7 @@ void onevent_ControllerButtonLUp_released_0() {
   }
 }
 
+//When controller button L Down is pressed
 void onevent_ControllerButtonLDown_pressed_0() {
   if (rec) {
     timePoint = vex::timer::system();
@@ -146,6 +138,7 @@ void onevent_ControllerButtonLDown_pressed_0() {
   }
 }
 
+//When controller button L Down is released
 void onevent_ControllerButtonLDown_released_0() {
   if (rec) {
     timePoint = vex::timer::system();
@@ -156,6 +149,7 @@ void onevent_ControllerButtonLDown_released_0() {
   }
 }
 
+//When controllr button F Up is pressed
 void onevent_ControllerButtonFUp_pressed_0() {
   if (rec) {
     timePoint = vex::timer::system();
@@ -167,6 +161,7 @@ void onevent_ControllerButtonFUp_pressed_0() {
   }
 }
 
+//When controller button F Up is released
 void onevent_ControllerButtonFUp_released_0() {
   if (rec) {
     timePoint = vex::timer::system();
@@ -176,6 +171,8 @@ void onevent_ControllerButtonFUp_released_0() {
     arrCount = arrCount + 1;
   }
 }
+
+//When controller button F Down is pressed
 void onevent_ControllerButtonFDown_pressed_0() {
   if (rec) {
     timePoint = vex::timer::system();
@@ -187,6 +184,7 @@ void onevent_ControllerButtonFDown_pressed_0() {
   }
 }
 
+//When controller button F Down is released
 void onevent_ControllerButtonFDown_released_0() {
   if (rec) {
     timePoint = vex::timer::system();
@@ -197,6 +195,7 @@ void onevent_ControllerButtonFDown_released_0() {
   }
 }
 
+//When controller button E Up is pressed
 void onevent_ControllerButtonEUp_pressed_0() {
   if (rec) {
     timePoint = vex::timer::system();
@@ -207,6 +206,7 @@ void onevent_ControllerButtonEUp_pressed_0() {
   }
 }
 
+//When controller button E Up is released
 void onevent_ControllerButtonEUp_released_0() {
   if (rec) {
     timePoint = vex::timer::system();
@@ -217,6 +217,7 @@ void onevent_ControllerButtonEUp_released_0() {
   }
 }
 
+//When controller button E Down is pressed
 void onevent_ControllerButtonEDown_pressed_0() {
   if (rec) {
     timePoint = vex::timer::system();
@@ -227,6 +228,7 @@ void onevent_ControllerButtonEDown_pressed_0() {
   }
 }
 
+//When controller button E Down is released
 void onevent_ControllerButtonEDown_released_0() {
   if (rec) {
     timePoint = vex::timer::system();
@@ -237,8 +239,11 @@ void onevent_ControllerButtonEDown_released_0() {
   }
 }
 
+//When the left joystick is moved
 void onevent_ControllerAxisAChanged_0() {
   if (rec) {
+    
+    //When the left joystick is moved forward
     if (Controller.AxisA.position() > 0.0) {
       timePoint = vex::timer::system();
       arr[arrCount] = 9;
@@ -246,6 +251,8 @@ void onevent_ControllerAxisAChanged_0() {
       arr[arrCount] = timePoint;
       arrCount = arrCount + 1;
     }
+    
+    //When the left joystick is moved backward
     if (Controller.AxisA.position() < 0.0) {
       timePoint = vex::timer::system();
       arr[arrCount] = 10;
@@ -256,8 +263,11 @@ void onevent_ControllerAxisAChanged_0() {
   }
 }
 
+//When the right joystick is moved
 void onevent_ControllerAxisDChanged_0() {
   if (rec) {
+    
+    //When the right joystick is moved forward
     if (Controller.AxisD.position() > 0.0) {
       timePoint = vex::timer::system();
       arr[arrCount] = 11;
@@ -265,6 +275,8 @@ void onevent_ControllerAxisDChanged_0() {
       arr[arrCount] = timePoint;
       arrCount = arrCount + 1;
     }
+    
+    //When the right joystick is moved backward
     if (Controller.AxisD.position() < 0.0) {
       timePoint = vex::timer::system();
       arr[arrCount] = 12;
@@ -275,17 +287,19 @@ void onevent_ControllerAxisDChanged_0() {
   }
 }
 
+//When started function
 int whenStarted1() {
+  //Assigning varibles
   select1 = true;
   autoOn = true;
   started = false;
+  buttonEnable1 = true;
+  save = false;
 
   timePoint = 0.0;
   arrCount = 0.0;
   arrCounter = 0.0;
   select2 = 0.0;
-  buttonEnable1 = true;
-  save = false;
 
   Drivetrain.setDriveVelocity(100.0, percent);
   Catapult.setStopping(hold);
@@ -293,6 +307,8 @@ int whenStarted1() {
   Catapult.setVelocity(100.0, percent);
 
   while (true) {
+
+    //Starting the recording
     if ((Controller.ButtonEUp.pressing()) && !rec && !started) {
       Brain.playNote(3, 0, 100);
       started = true;
@@ -301,6 +317,8 @@ int whenStarted1() {
       wait(20,msec);
       rec = true;
     }
+
+    //Stopping the recording
     if ((Controller.ButtonEDown.pressing()) && rec && started) {
       Brain.playNote(3, 1, 100);
       rec = false;
@@ -309,6 +327,8 @@ int whenStarted1() {
 
     //Brain select interface
     if (!rec && started && !save) {
+
+      //Interace 1 selection
       if (select1 && buttonEnable1) {
         Brain.Screen.clearScreen();
         Brain.Screen.setCursor(1,1);
@@ -317,126 +337,18 @@ int whenStarted1() {
         Brain.Screen.setPenColor(white);
         Brain.Screen.setCursor(2,1);
         Brain.Screen.print("Print Data");
+
         if (Controller.ButtonEDown.pressing()) {
           select1 = false;
         }
+
         if (Controller.ButtonFUp.pressing()) {
           buttonEnable1 = false;
         }
         wait(20,msec);
       }
-      if (select2 == 0 && !buttonEnable1 && !save) {
-        Brain.Screen.clearScreen();
-        Brain.Screen.setCursor(1,1);
-        Brain.Screen.setPenColor(red);
-        Brain.Screen.print("Save Slot 1");
-        Brain.Screen.setCursor(2,1);
-        Brain.Screen.setPenColor(white);
-        Brain.Screen.print("Save Slot 2");
-        Brain.Screen.setCursor(3,1);
-        Brain.Screen.print("Save Slot 3");
-        waitUntil(!(Controller.ButtonFUp.pressing()));
-        if (Controller.ButtonEDown.pressing()) {
-          select2 += 1;
-        }
-        if (Controller.ButtonFUp.pressing()) {
-          save = true;
-        }
-        if (Controller.ButtonFDown.pressing()) {
-          buttonEnable1 = true;
-        }
-        wait(100,msec);
-      }
-      if (save && select2 == 0) {
-        waitUntil(!(Controller.ButtonFUp.pressing()) && !(Controller.ButtonFDown.pressing()));
-        Brain.Screen.clearScreen();
-        Brain.Screen.setCursor(1,1);
-        Brain.Screen.setPenColor(white);
-        Brain.Screen.print("Saving to slot 1");
-        //code to save data
-        Brain.Screen.clearScreen();
-        Brain.Screen.setCursor(1,1);
-        Brain.Screen.print("Saved to slot 1");
-        wait(2.5, seconds);
-        Brain.Screen.clearScreen();
-        wait(20,msec);
-      }
-      if (select2 == 1 && !buttonEnable1 && !save) {
-        waitUntil(!(Controller.ButtonFUp.pressing()) && !(Controller.ButtonFDown.pressing()));
-        Brain.Screen.clearScreen();
-        Brain.Screen.setCursor(1,1);
-        Brain.Screen.setPenColor(white);
-        Brain.Screen.print("Save Slot 1");
-        Brain.Screen.setCursor(2,1);
-        Brain.Screen.setPenColor(red);
-        Brain.Screen.print("Save Slot 2");
-        Brain.Screen.setCursor(3,1);
-        Brain.Screen.setPenColor(white);
-        Brain.Screen.print("Save Slot 3");
-        waitUntil(!(Controller.ButtonFUp.pressing()));
-        if (Controller.ButtonEDown.pressing()) {
-          select2 += 1;
-        }
-        if (Controller.ButtonEUp.pressing()) {
-          select2 = select2 - 1;
-        }
-        if (Controller.ButtonFUp.pressing()) {
-          save = true;
-        }
-        if (Controller.ButtonFDown.pressing()) {
-          buttonEnable1 = true;
-        }
-        wait(100,msec);
-      }
-      if (save && select2 == 1) {
-        Brain.Screen.clearScreen();
-        Brain.Screen.setCursor(1,1);
-        Brain.Screen.setPenColor(white);
-        Brain.Screen.print("Saving to slot 2");
-        //code to save data
-        Brain.Screen.clearScreen();
-        Brain.Screen.setCursor(1,1);
-        Brain.Screen.print("Saved to slot 2");
-        wait(2.5, seconds);
-        Brain.Screen.clearScreen();
-        wait(20,msec);
-      }
-      if (select2 == 2 && !buttonEnable1 && !save) {
-        waitUntil(!(Controller.ButtonFUp.pressing()) && !(Controller.ButtonFDown.pressing()));
-        Brain.Screen.clearScreen();
-        Brain.Screen.setCursor(1,1);
-        Brain.Screen.setPenColor(white);
-        Brain.Screen.print("Save Slot 1");
-        Brain.Screen.setCursor(2,1);
-        Brain.Screen.setPenColor(white);
-        Brain.Screen.print("Save Slot 2");
-        Brain.Screen.setCursor(3,1);
-        Brain.Screen.setPenColor(red);
-        Brain.Screen.print("Save Slot 3");
-        waitUntil(!(Controller.ButtonFUp.pressing()));
-        if (Controller.ButtonEUp.pressing()) {
-          select2 = select2 - 1;
-        }
-        if (Controller.ButtonFUp.pressing()) {
-          save = true;
-        }
-        if (Controller.ButtonFDown.pressing()) {
-          buttonEnable1 = true;
-        }
-        wait(100,msec);
-      }
-      if (save && select2 == 2) {
-        Brain.Screen.clearScreen();
-        Brain.Screen.setCursor(1,1);
-        Brain.Screen.setPenColor(white);
-        Brain.Screen.print("Saving to slot 3");
-        //code to save data
-        Brain.Screen.clearScreen();
-        Brain.Screen.setCursor(1,1);
-        Brain.Screen.print("Saved to slot 3");
-        wait(2.5, seconds);
-        Brain.Screen.clearScreen();
-      }
+
+      //Interface 1 selection
       if (!select1 && buttonEnable1 && !save) {
         Brain.Screen.clearScreen();
         Brain.Screen.setCursor(1,1);
@@ -445,11 +357,14 @@ int whenStarted1() {
         Brain.Screen.setPenColor(red);
         Brain.Screen.setCursor(2,1);
         Brain.Screen.print("Print Data");
+
         if (Controller.ButtonEUp.pressing()) {
           select1 = true;
         }
         wait(20,msec);
+
         if (Controller.ButtonFUp.pressing()) {
+
           if (!rec && started) {
             Brain.Screen.setPenColor(white);
             Brain.Screen.clearScreen();
@@ -462,6 +377,7 @@ int whenStarted1() {
             Brain.Screen.newLine();
             Brain.Screen.print("%f", arrCount);
             waitUntil(Controller.ButtonEUp.pressing());
+
             while (!(arrCounter == arrCount)) {
               Brain.Screen.clearScreen();
               Brain.Screen.setCursor(1, 1);
@@ -477,21 +393,169 @@ int whenStarted1() {
           }
         }
       }
-    }
-    
-    if (autoOn) {
-      if (!Booty.pressing() && autoOn) {
-        Catapult.spin(forward);
+
+      //Interface 2 selection
+      if (select2 == 0 && !buttonEnable1 && !save) {
+        Brain.Screen.clearScreen();
+        Brain.Screen.setCursor(1,1);
+        Brain.Screen.setPenColor(red);
+        Brain.Screen.print("Save Slot 1");
+        Brain.Screen.setCursor(2,1);
+        Brain.Screen.setPenColor(white);
+        Brain.Screen.print("Save Slot 2");
+        Brain.Screen.setCursor(3,1);
+        Brain.Screen.print("Save Slot 3");
+        waitUntil(!(Controller.ButtonFUp.pressing()));
+
+        if (Controller.ButtonEDown.pressing()) {
+          select2 += 1;
+        }
+
+        if (Controller.ButtonFUp.pressing()) {
+          save = true;
+        }
+
+        if (Controller.ButtonFDown.pressing()) {
+          buttonEnable1 = true;
+        }
+        wait(100,msec);
+      }
+
+      //Saving to slot 1
+      if (save && select2 == 0) {
+        waitUntil(!(Controller.ButtonFUp.pressing()) && !(Controller.ButtonFDown.pressing()));
+        Brain.Screen.clearScreen();
+        Brain.Screen.setCursor(1,1);
+        Brain.Screen.setPenColor(white);
+        Brain.Screen.print("Saving to slot 1");
+
+        int nWritten = Brain.SDcard.savefile("Slot1.h", (arr[] + arr2[] + arr3[]), sizeof(arr[] + arr2[] + arr3[]));
+        Brain.Screen.clearScreen();
+        Brain.Screen.setCursor(1,1);
+        wait(20,msec);
+
+        if( nWritten > 0) {
+          // display on screen how many bytes we wrote
+          Brain.Screen.setCursor( 2, 2 );
+          Brain.Screen.print( "Wrote %d bytes to the SD Card", nWritten );
+
+        wait(2.5, seconds);
+        Brain.Screen.clearScreen();
+        wait(20,msec);
+      }
+
+      //Interface 2 selection 
+      if (select2 == 1 && !buttonEnable1 && !save) {
+        waitUntil(!(Controller.ButtonFUp.pressing()) && !(Controller.ButtonFDown.pressing()));
+        Brain.Screen.clearScreen();
+        Brain.Screen.setCursor(1,1);
+        Brain.Screen.setPenColor(white);
+        Brain.Screen.print("Save Slot 1");
+        Brain.Screen.setCursor(2,1);
+        Brain.Screen.setPenColor(red);
+        Brain.Screen.print("Save Slot 2");
+        Brain.Screen.setCursor(3,1);
+        Brain.Screen.setPenColor(white);
+        Brain.Screen.print("Save Slot 3");
+        waitUntil(!(Controller.ButtonFUp.pressing()));
+
+        if (Controller.ButtonEDown.pressing()) {
+          select2 += 1;
+        }
+
+        if (Controller.ButtonEUp.pressing()) {
+          select2 = select2 - 1;
+        }
+
+        if (Controller.ButtonFUp.pressing()) {
+          save = true;
+        }
+
+        if (Controller.ButtonFDown.pressing()) {
+          buttonEnable1 = true;
+        }
+        wait(100,msec);
+
+      }
+
+      //Saving to slot 2
+      if (save && select2 == 1) {
+        Brain.Screen.clearScreen();
+        Brain.Screen.setCursor(1,1);
+        Brain.Screen.setPenColor(white);
+        Brain.Screen.print("Saving to slot 2");
+
+        int nWritten = Brain.SDcard.savefile("Slot2.h", (arr[] + arr2[] + arr3[]), sizeof(arr[] + arr2[] + arr3[]));
+        Brain.Screen.clearScreen();
+        Brain.Screen.setCursor(1,1);
+        wait(20,msec);
+
+        if( nWritten > 0) {
+          // display on screen how many bytes we wrote
+          Brain.Screen.setCursor( 2, 2 );
+          Brain.Screen.print( "Wrote %d bytes to the SD Card", nWritten );
+
+        wait(2.5, seconds);
+        Brain.Screen.clearScreen();
+        wait(20,msec);
+      }
+
+      //Interface 2 selection
+      if (select2 == 2 && !buttonEnable1 && !save) {
+        waitUntil(!(Controller.ButtonFUp.pressing()) && !(Controller.ButtonFDown.pressing()));
+        Brain.Screen.clearScreen();
+        Brain.Screen.setCursor(1,1);
+        Brain.Screen.setPenColor(white);
+        Brain.Screen.print("Save Slot 1");
+        Brain.Screen.setCursor(2,1);
+        Brain.Screen.setPenColor(white);
+        Brain.Screen.print("Save Slot 2");
+        Brain.Screen.setCursor(3,1);
+        Brain.Screen.setPenColor(red);
+        Brain.Screen.print("Save Slot 3");
+        waitUntil(!(Controller.ButtonFUp.pressing()));
+
+        if (Controller.ButtonEUp.pressing()) {
+          select2 = select2 - 1;
+        }
+
+        if (Controller.ButtonFUp.pressing()) {
+          save = true;
+        }
+
+        if (Controller.ButtonFDown.pressing()) {
+          buttonEnable1 = true;
+        }
+
+        wait(100,msec);
+      }
+
+      //Saving to slot 3
+      if (save && select2 == 2) {
+        Brain.Screen.clearScreen();
+        Brain.Screen.setCursor(1,1);
+        Brain.Screen.setPenColor(white);
+        Brain.Screen.print("Saving to slot 3");
+
+        int nWritten = Brain.SDcard.savefile("Slot3.h", (arr[] + arr2[] + arr3[]), sizeof(arr[] + arr2[] + arr3[]));
+        Brain.Screen.clearScreen();
+        Brain.Screen.setCursor(1,1);
+        wait(20,msec);
+
+        if( nWritten > 0) {
+          // display on screen how many bytes we wrote
+          Brain.Screen.setCursor( 2, 2 );
+          Brain.Screen.print( "Wrote %d bytes to the SD Card", nWritten );
+
+        wait(2.5, seconds);
+        Brain.Screen.clearScreen();
+        wait(20,msec);
       }
     }
+    
     wait(20,msec);
     }
   return 0;
-}
-
-// "when Booty pressed" hat block
-void onevent_Booty_pressed_0() {
-  Catapult.stop();
 }
 
 int main() {
