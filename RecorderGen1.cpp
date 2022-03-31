@@ -37,9 +37,9 @@ bool RemoteControlCodeEnabled = true;
 //----------------------------------------------------------------------------
 //                                                                            
 //    Module:       main.cpp                                                  
-//    Author:       {author}                                                  
-//    Created:      {date}                                                    
-//    Description:  IQ project                                                
+//    Author:       Kieran Sherman                                                  
+//    Created:      3/31/2022                                                    
+//    Description:  VEX IQ driver movement recording program                                                
 //                                                                            
 //----------------------------------------------------------------------------
 
@@ -59,7 +59,7 @@ int arrCount, arrCounter;
 bool rec, autoOn, started;
 
 //Arrays for storing the recorded data
-float arr[370] = {}, arr2[370] = {};
+float arr[370] = {}, arr2[370] = {}, arr3[370] = {};
 
 //When controller button R Up is pressed
 void onevent_ControllerButtonRUp_pressed_0() {
