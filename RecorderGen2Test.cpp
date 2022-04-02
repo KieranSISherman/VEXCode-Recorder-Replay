@@ -113,11 +113,7 @@ void arr3() {
   arrLengths();
 }
 
-//When controller button R Up is pressed
-void onevent_ControllerButtonRUp_pressed_0() {
-  timePoint - vex::timer::system();
-  motorNum = 1;
-
+void writeData() {
   if (rec && arr1len != 368) {
     arr1();
   }
@@ -127,246 +123,118 @@ void onevent_ControllerButtonRUp_pressed_0() {
   if (rec && arr3len != 368 && arr2len == 368) {
     arr3();
   }
+}
+
+//When controller button R Up is pressed
+void onevent_ControllerButtonRUp_pressed_0() {
+  timePoint - vex::timer::system();
+  motorNum = 1;
+  writeData();
 }
 
 //When controller button R Up is released
 void onevent_ControllerButtonRUp_released_0() {
   timePoint - vex::timer::system();
   motorNum = 13;
-
-  if (rec && arr1len != 368) {
-    arr1();
-  }
-  if (rec && arr2len != 368 && arr1len == 368) {
-    arr2();
-  }
-  if (rec && arr3len != 368 && arr2len == 368) {
-    arr3();
-  }
+  writeData();
 }
 
 //When controller button R Down is pressed
 void onevent_ControllerButtonRDown_pressed_0() {
   timePoint - vex::timer::system();
   motorNum = 2;
-
-  if (rec && arr1len != 368) {
-    arr1();
-  }
-  if (rec && arr2len != 368 && arr1len == 368) {
-    arr2();
-  }
-  if (rec && arr3len != 368 && arr2len == 368) {
-    arr3();
-  }
+  writeData();
 }
 
 //When controller Button R Down is released
 void onevent_ControllerButtonRDown_released_0() {
   timePoint - vex::timer::system();
   motorNum = 14;
-
-  if (rec && arr1len != 368) {
-    arr1();
-  }
-  if (rec && arr2len != 368 && arr1len == 368) {
-    arr2();
-  }
-  if (rec && arr3len != 368 && arr2len == 368) {
-    arr3();
-  }
+  writeData();
 }
 
 //When controller L Up is pressed
 void onevent_ControllerButtonLUp_pressed_0() {
   timePoint - vex::timer::system();
   motorNum = 3;
-
-  if (rec && arr1len != 368) {
-    arr1();
-  }
-  if (rec && arr2len != 368 && arr1len == 368) {
-    arr2();
-  }
-  if (rec && arr3len != 368 && arr2len == 368) {
-    arr3();
-  }
+  writeData();
 }
 
 //When controller L Up is released
 void onevent_ControllerButtonLUp_released_0() {
   timePoint - vex::timer::system();
   motorNum = 15;
-
-  if (rec && arr1len != 368) {
-    arr1();
-  }
-  if (rec && arr2len != 368 && arr1len == 368) {
-    arr2();
-  }
-  if (rec && arr3len != 368 && arr2len == 368) {
-    arr3();
-  }
+  writeData();
 }
 
 //When controller button L Down is pressed
 void onevent_ControllerButtonLDown_pressed_0() {
   timePoint - vex::timer::system();
   motorNum = 4;
-
-  if (rec && arr1len != 368) {
-    arr1();
-  }
-  if (rec && arr2len != 368 && arr1len == 368) {
-    arr2();
-  }
-  if (rec && arr3len != 368 && arr2len == 368) {
-    arr3();
-  }
+  writeData();
 }
 
 //When controller button L Down is released
 void onevent_ControllerButtonLDown_released_0() {
   timePoint - vex::timer::system();
   motorNum = 16;
-
-  if (rec && arr1len != 368) {
-    arr1();
-  }
-  if (rec && arr2len != 368 && arr1len == 368) {
-    arr2();
-  }
-  if (rec && arr3len != 368 && arr2len == 368) {
-    arr3();
-  }
+  writeData();
 }
 
 //When controllr button F Up is pressed
 void onevent_ControllerButtonFUp_pressed_0() {
   timePoint - vex::timer::system();
   motorNum = 5;
-
-  if (rec && arr1len != 368) {
-    arr1();
-  }
-  if (rec && arr2len != 368 && arr1len == 368) {
-    arr2();
-  }
-  if (rec && arr3len != 368 && arr2len == 368) {
-    arr3();
-  }
+  writeData();
 }
 
 //When controller button F Up is released
 void onevent_ControllerButtonFUp_released_0() {
   timePoint - vex::timer::system();
   motorNum = 17;
-
-  if (rec && arr1len != 368) {
-    arr1();
-  }
-  if (rec && arr2len != 368 && arr1len == 368) {
-    arr2();
-  }
-  if (rec && arr3len != 368 && arr2len == 368) {
-    arr3();
-  }
+  writeData();
 }
 
 //When controller button F Down is pressed
 void onevent_ControllerButtonFDown_pressed_0() {
   timePoint - vex::timer::system();
   motorNum = 6;
-
-  if (rec && arr1len != 368) {
-    arr1();
-  }
-  if (rec && arr2len != 368 && arr1len == 368) {
-    arr2();
-  }
-  if (rec && arr3len != 368 && arr2len == 368) {
-    arr3();
-  }
+  writeData();
 }
 
 //When controller button F Down is released
 void onevent_ControllerButtonFDown_released_0() {
   timePoint - vex::timer::system();
   motorNum = 18;
-
-  if (rec && arr1len != 368) {
-    arr1();
-  }
-  if (rec && arr2len != 368 && arr1len == 368) {
-    arr2();
-  }
-  if (rec && arr3len != 368 && arr2len == 368) {
-    arr3();
-  }
+  writeData();
 }
 
 //When controller button E Up is pressed
 void onevent_ControllerButtonEUp_pressed_0() {
   timePoint - vex::timer::system();
   motorNum = 7;
-
-  if (rec && arr1len != 368) {
-    arr1();
-  }
-  if (rec && arr2len != 368 && arr1len == 368) {
-    arr2();
-  }
-  if (rec && arr3len != 368 && arr2len == 368) {
-    arr3();
-  }
+  writeData();
 }
 
 //When controller button E Up is released
 void onevent_ControllerButtonEUp_released_0() {
   timePoint - vex::timer::system();
   motorNum = 19;
-
-  if (rec && arr1len != 368) {
-    arr1();
-  }
-  if (rec && arr2len != 368 && arr1len == 368) {
-    arr2();
-  }
-  if (rec && arr3len != 368 && arr2len == 368) {
-    arr3();
-  }
+  writeData();
 }
 
 //When controller button E Down is pressed
 void onevent_ControllerButtonEDown_pressed_0() {
   timePoint - vex::timer::system();
   motorNum = 8;
-
-  if (rec && arr1len != 368) {
-    arr1();
-  }
-  if (rec && arr2len != 368 && arr1len == 368) {
-    arr2();
-  }
-  if (rec && arr3len != 368 && arr2len == 368) {
-    arr3();
-  }
+  writeData();
 }
 
 //When controller button E Down is released
 void onevent_ControllerButtonEDown_released_0() {
   timePoint - vex::timer::system();
   motorNum = 20;
-
-  if (rec && arr1len != 368) {
-    arr1();
-  }
-  if (rec && arr2len != 368 && arr1len == 368) {
-    arr2();
-  }
-  if (rec && arr3len != 368 && arr2len == 368) {
-    arr3();
-  }
+  writeData();
 }
 
 //When the left joystick is moved
@@ -377,75 +245,30 @@ void onevent_ControllerAxisAChanged_0() {
     if (Controller.AxisA.position() > 0.0) {
       timePoint - vex::timer::system();
       motorNum = 9;
-
-      if (rec && arr1len != 368) {
-        arr1();
-        leftJoystickUp = true;
-      }
-      if (rec && arr2len != 368 && arr1len == 368) {
-        arr2();
-        leftJoystickUp = true;
-      }
-      if (rec && arr3len != 368 && arr2len == 368) {
-        arr3();
-        leftJoystickUp = true;
-      }
+      writeData();
+      leftJoystickUp = false;
     }
 
     if (Controller.AxisA.position() <= 0.0 && leftJoystickUp) {
       timePoint - vex::timer::system();
       motorNum = 21;
-
-      if (rec && arr1len != 368) {
-        arr1();
-        leftJoystickUp = false;
-      }
-      if (rec && arr2len != 368 && arr1len == 368) {
-        arr2();
-        leftJoystickUp = false;
-      }
-      if (rec && arr3len != 368 && arr2len == 368) {
-        arr3();
-        leftJoystickUp = false;
-      }
+      writeData();
+      leftJoystickUp = false;
     }
     
     //When the left joystick is moved backward
     if (Controller.AxisA.position() < 0.0) {
       timePoint - vex::timer::system();
       motorNum = 10;
-
-      if (rec && arr1len != 368) {
-        arr1();
-        leftJoystickdown = true;
-      }
-      if (rec && arr2len != 368 && arr1len == 368) {
-        arr2();
-        leftJoystickdown = true;
-      }
-      if (rec && arr3len != 368 && arr2len == 368) {
-        arr3();
-        leftJoystickdown = true;
-      }
+      writeData();
+      leftJoystickDown = true;
     }
 
     if (Controller.AxisA.position() >= 0.0 && leftJoystickDown) {
       timePoint - vex::timer::system();
       motorNum = 22;
-
-      if (rec && arr1len != 368) {
-        arr1();
-        leftJoystickdown = false;
-      }
-      if (rec && arr2len != 368 && arr1len == 368) {
-        arr2();
-        leftJoystickdown = false;
-      }
-      if (rec && arr3len != 368 && arr2len == 368) {
-        arr3();
-        leftJoystickdown = false;
-      }
-    }
+      writeData();
+      leftJoystickDown = false;
   }
 }
 
@@ -457,73 +280,29 @@ void onevent_ControllerAxisDChanged_0() {
     if (Controller.AxisD.position() > 0.0) {
       timePoint - vex::timer::system();
       motorNum = 11;
-
-      if (rec && arr1len != 368) {
-        arr1();
-        rightJoystickUp = true;
-      }
-      if (rec && arr2len != 368 && arr1len == 368) {
-        arr2();
-        rightJoystickUp = true;
-      }
-      if (rec && arr3len != 368 && arr2len == 368) {
-        arr3();
-        rightJoystickUp = true;
-      }
+      writeData();
+      rightJoystickUp = true;
     }
 
     if (Controller.AxisD.position() <= 0.0 && rightJoystickUp) {
       timePoint - vex::timer::system();
       motorNum = 23;
-
-      if (rec && arr1len != 368) {
-        arr1();
-        rightJoystickUp = false;
-      }
-      if (rec && arr2len != 368 && arr1len == 368) {
-        arr2();
-        rightJoystickUp = false;
-      }
-      if (rec && arr3len != 368 && arr2len == 368) {
-        arr3();
-        rightJoystickUp = false;
-      }
+      writeData();
+      rightJoystickUp = false;
     }
 
     if (Controller.AxisD.position() < 0.0) {
       timePoint - vex::timer::system();
       motorNum = 12;
-
-      if (rec && arr1len != 368) {
-        arr1();
-        rightJoystickDown = true;
-      }
-      if (rec && arr2len != 368 && arr1len == 368) {
-        arr2();
-        rightJoystickDown = true;
-      }
-      if (rec && arr3len != 368 && arr2len == 368) {
-        arr3();
-        rightJoystickDown = true;
-      }
+      writeData();
+      rightJoystickDown = true;
     }
 
     if (Controller.AxisD.position() >= 0.0) {
       timePoint - vex::timer::system();
       motorNum = 24;
-
-      if (rec && arr1len != 368) {
-        arr1();
-        rightJoystickDown = false;
-      }
-      if (rec && arr2len != 368 && arr1len == 368) {
-        arr2();
-        rightJoystickDown = false;
-      }
-      if (rec && arr3len != 368 && arr2len == 368) {
-        arr3();
-        rightJoystickDown = false;
-      }
+      writeData();
+      rightJoystickDown = false;
     }
   }
 }
@@ -674,7 +453,7 @@ int whenStarted1() {
         Brain.Screen.setPenColor(white);
         Brain.Screen.print("Saving to slot 1");
 
-        int nWritten = Brain.SDcard.savefile("Slot1.h", (arr[] + arr2[] + arr3[]), sizeof(arr[] + arr2[] + arr3[]));
+        int nWritten = Brain.SDcard.savefile("Slot1.h", (arr[] + arr2[] + arr3[]), (arr1len + arr2len + arr3len));
         Brain.Screen.clearScreen();
         Brain.Screen.setCursor(1,1);
         wait(20,msec);
@@ -730,7 +509,7 @@ int whenStarted1() {
         Brain.Screen.setPenColor(white);
         Brain.Screen.print("Saving to slot 2");
 
-        int nWritten = Brain.SDcard.savefile("Slot2.h", (arr[] + arr2[] + arr3[]), sizeof(arr[] + arr2[] + arr3[]));
+        int nWritten = Brain.SDcard.savefile("Slot2.h", (arr[] + arr2[] + arr3[]), (arr1len + arr2len + arr3len));
         Brain.Screen.clearScreen();
         Brain.Screen.setCursor(1,1);
         wait(20,msec);
@@ -782,7 +561,7 @@ int whenStarted1() {
         Brain.Screen.setPenColor(white);
         Brain.Screen.print("Saving to slot 3");
 
-        int nWritten = Brain.SDcard.savefile("Slot3.h", (arr[] + arr2[] + arr3[]), sizeof(arr[] + arr2[] + arr3[]));
+        int nWritten = Brain.SDcard.savefile("Slot3.h", (arr[] + arr2[] + arr3[]), (arr1len + arr2len + arr3len));
         Brain.Screen.clearScreen();
         Brain.Screen.setCursor(1,1);
         wait(20,msec);
