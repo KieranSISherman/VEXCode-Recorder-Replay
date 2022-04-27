@@ -17,6 +17,10 @@ After you record some driving, the SD card will have a text document on it calle
 *You have to manually delete the information from the text file on the SD card if you want a new recording. Otherwise it will add to the original recording.*
 
 # Button Input List
+Below shows what button input it equal to what number:
+
+Buttons:
+
 - Button R Up Pressed = 1 .............. Button R Up Released = 13 
 - Button R Down Pressed = 2 ........ Button R Down Released = 14
 - Button L Up Pressed = 3 .............. Button L Up Released = 15
@@ -26,4 +30,52 @@ After you record some driving, the SD card will have a text document on it calle
 - Button E Up Pressed = 7 .............. Button E Up Released = 19
 - Button E Down Pressed = 8 ........ Button E Down Released = 20
 
+Joysticks Axis A:
+- Joystick Axis A -100 = 25
+- Joystick Axis A -90 = 26
+- Joystick Axis A -80 = 27
+- Joystick Axis A -70 = 28
+- Joystick Axis A -60 = 29
+- Joystick Axis A -50 = 30
+- Joystick Axis A -40 = 31
+- Joystick Axis A -30 = 32
+- Joystick Axis A -20 = 33
+- Joystick Axis A -10 = 34
+- Joystick Axis A -0.1 = 35
+- Joystick Axis A 0 = 36
+- Joystick Axis A 0.1 = 37
+- Joystick Axis A 10 = 38
+- Joystick Axis A 20 = 39
+- Joystick Axis A 30 = 40
+- Joystick Axis A 40 = 41
+- Joystick Axis A 50 = 42
+- Joystick Axis A 60 = 43
+- Joystick Axis A 70 = 44
+- Joystick Axis A 80 = 45
+- Joystick Axis A 90 = 46
+- Joystick Axis A 100 = 47
 
+Joysticks Axis D:
+- Joystick Axis D -100 = 48
+- Joystick Axis D -90 = 49
+- Joystick Axis D -80 = 50
+- Joystick Axis D -70 = 51
+- Joystick Axis D -60 = 52
+- Joystick Axis D -50 = 53
+- Joystick Axis D -40 = 54
+- Joystick Axis D -30 = 55
+- Joystick Axis D -20 = 56
+- Joystick Axis D -10 = 57
+- Joystick Axis D -0.1 = 58
+- Joystick Axis D 0 = 59
+- Joystick Axis D 0.1 = 60
+- Joystick Axis D 10 = 61
+- Joystick Axis D 20 = 62
+- Joystick Axis D 30 = 63
+- Joystick Axis D 40 = 64
+- Joystick Axis D 50 = 65
+- Joystick Axis D 60 = 66
+- Joystick Axis D 70 = 67
+- Joystick Axis D 80 = 68
+- Joystick Axis D 90 = 69
+- Joystick Axis D 100 = 70
