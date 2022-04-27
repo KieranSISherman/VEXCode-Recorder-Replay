@@ -15,3 +15,15 @@ The Generation 2 programs function the same as the generation 1 programs, the on
 After you record some driving, the SD card will have a text document on it called 'slot1.txt'. This is the file that the recording gets saved to. To replay the recorded driving you copy the information from the text document and paste it in the character variable in the generation 2 replay code. From there, you look through the code and add what functions your robot does when a button is pressed. The buttons are labeled and you only replace the comment that says to be replaced. Starting the replay is the same as the generation 1 replay, you push E Up and it will run the recording. You can play as many times as you want after it finishes.
 
 *You have to manually delete the information from the text file on the SD card if you want a new recording. Otherwise it will add to the original recording.*
+
+# Button Input List
+Button R Up Pressed = 1        Button R Up Released = 13
+Button R Down Pressed = 2      Button R Down Released = 14
+Button L Up Pressed = 3        Button L Up Released = 15
+Button L Down Pressed = 4      Button L Down Released = 16
+Button F Up Pressed = 5        Button F Up Released = 17
+Button F Down Pressed = 6      Button F Down Released = 18
+Button E Up Pressed = 7        Button E Up Released = 19
+Button E Down Pressed = 8      Button E Down Released = 20
+
+
