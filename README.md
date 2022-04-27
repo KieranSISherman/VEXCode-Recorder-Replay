@@ -17,7 +17,7 @@ After you record some driving, the SD card will have a text document on it calle
 *You have to manually delete the information from the text file on the SD card if you want a new recording. Otherwise it will add to the original recording.*
 
 # Button Input List
-- Button R Up Pressed = 1 ...... Button R Up Released = 13 
+- Button R Up Pressed = 1 .......... Button R Up Released = 13 
 - Button R Down Pressed = 2 .... Button R Down Released = 14
 - Button L Up Pressed = 3 ...... Button L Up Released = 15
 - Button L Down Pressed = 4 .... Button L Down Released = 16
