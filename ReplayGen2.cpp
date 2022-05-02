@@ -1,4 +1,3 @@
-#pragma region VEXcode Generated Robot Configuration
 // Make sure all required headers are included.
 #include <stdio.h>
 #include <stdlib.h>
@@ -28,26 +27,16 @@ brain Brain;
 
 // Robot configuration code.
 inertial BrainInertial = inertial();
-motor LeftDriveSmart = motor(PORT9, 1, false);
-motor RightDriveSmart = motor(PORT3, 1, true);
-drivetrain Drivetrain = drivetrain(LeftDriveSmart, RightDriveSmart, 200, 173, 76, mm, 1);
-motor CatapultMotorA = motor(PORT11, true);
-motor CatapultMotorB = motor(PORT4, false);
-motor_group Catapult = motor_group(CatapultMotorA, CatapultMotorB);
 
-motor IntakeMotorA = motor(PORT10, true);
-motor IntakeMotorB = motor(PORT5, false);
-motor_group Intake = motor_group(IntakeMotorA, IntakeMotorB);
 
-bumper Booty = bumper(PORT6);
 #pragma endregion VEXcode Generated Robot Configuration
 
 //----------------------------------------------------------------------------
 //                                                                            
 //    Module:       main.cpp                                                  
-//    Author:       {author}                                                  
-//    Created:      {date}                                                    
-//    Description:  IQ project                                                
+//    Author:       Kieran Sherman                                                  
+//    Created:      5/2/2022                                                    
+//    Description:  A program to replay driver movement that has been recorded                                                
 //                                                                            
 //----------------------------------------------------------------------------
 
@@ -57,373 +46,279 @@ bumper Booty = bumper(PORT6);
 // Allows for easier use of the VEX Library
 using namespace vex;
 
-bool replayOn, autoOn, catapultSpinning, select1, buttonEnabled;
-
-int arrCount, arrLen, select2;
+bool replayOn;
 
 float startTime, recStartTime, latency;
 
-float arr[] = {};
+int ptrFltCon, ptrFltConTemp, ptrFlt, ptrFltConLen, ptrFltRev, ptrFltSave;
 
-//add stopping for drivetrain forward and backward
-//add code to go back to loadInterface after the replay is done
+char infoChar[1200] = "";
 
-void loadInterface() {
-  buttonEnabled = true;
-  select1 = true;
-  select2 = 0;
-  while(true) {
-    if (select1 && buttonEnabled) {
-      Brain.Screen.clearScreen();
-      Brain.Screen.setCursor(1,1);
-      Brain.Screen.setPenColor(red);
-      Brain.Screen.print("Load File")
-      Brain.Screen.setCursor(2,1);
-      Brain.Screen.setPenColor(white);
-      Brain.Screen.print("Run Imported Data");
-
-      if (Controller.ButtonEDown.pressing()) {
-        select1 = false;
-      }
-      
-      if (Controller.ButtonFUp.pressing()) {
-        buttonEnabled = false;
-      }
-    }
-    if (!select1 && buttonEnabled) {
-      Brain.Screen.clearScreen();
-      Brain.Screen.setPenColor(white);
-      Brain.Screen.setCursor(1,1);
-      Brain.Screen.print("Load File");
-      Brain.Screen.setCursor(2,1);
-      Brain.Screen.setPenColor(red);
-      Brain.Screen.print("Run Imported Data");
-
-      if (Controller.ButtonEUp.pressing()) {
-        select1 = true;
-      }
-
-      if (Controller.ButtonFUp.pressing()) {
-        arrLen = sizeof(arr)/sizeof(arr[0]);
-        if (arrLen > 0) {
-          playBack();
-          break;
-        }
-        else {
-          Brain.Screen.clearScreen();
-          Brain.Screen.setCursor(1,1);
-          Brain.Screen.setPenColor(white);
-          Brain.Screen.print("No Imported Code");
-          wait(5, seconds);
-          Brain.Screen.clearScreen();
-          select1 = true;
-        }
-      }
-    }
-    if (!buttonEnabled && select2 == 0) {
-      Brain.Screen.clearScreen();
-      Brain.Screen.setCursor(1,1);
-      Brain.Screen.setPenColor(red);
-      Brain.Screen.print("Load Save 1");
-      Brain.Screen.newLine();
-      Brain.Screen.setPenColor(white);
-      Brain.Screen.print("Load Save 2");
-      Brain.Screen.newLine();
-      Brain.Screen.setPenColor(white);
-      Brain.Screen.print("Load Save 3");
-
-      if (Controller.ButtonFUp.pressing()) {
-        //code to load from save slot 1
-        Brain.Screen.clearScreen();
-        playBack();
-        break;
-      }
-
-      if (Controller.ButtonEDown.pressing()) {
-        select2 += 1;
-      }
-    }
-    if (!buttonEnabled && select2 == 1) {
-      Brain.Screen.clearScreen();
-      Brain.Screen.setCursor(1,1);
-      Brain.Screen.setPenColor(white);
-      Brain.Screen.print("Load Save 1");
-      Brain.Screen.newLine();
-      Brain.Screen.setPenColor(red);
-      Brain.Screen.print("Load Save 2");
-      Brain.Screen.newLine();
-      Brain.Screen.setPenColor(white);
-      Brain.Screen.print("Load Save 3");
-
-      if (Controller.ButtonFUp.pressing()) {
-        //code to load from save slot 2
-        Brain.Screen.clearScreen();
-        playBack();
-        break;
-      }
-
-      if (Controller.ButtonEDown.pressing()) {
-        select2 += 1;
-      }
-
-      if (Controller.ButtonEUp.pressing()) {
-        select2 -= 1;
-      }
-    }
-    if (!buttonEnabled && select2 == 2) {
-      Brain.Screen.clearScreen();
-      Brain.Screen.setCursor(1,1);
-      Brain.Screen.setPenColor(white);
-      Brain.Screen.print("Load Save 1");
-      Brain.Screen.newLine();
-      Brain.Screen.setPenColor(white);
-      Brain.Screen.print("Load Save 2");
-      Brain.Screen.newLine();
-      Brain.Screen.setPenColor(red);
-      Brain.Screen.print("Load Save 3");
-
-      if (Controller.ButtonFUp.pressing()) {
-        //code to load from save slot 3
-        Brain.Screen.clearScreen();
-        playBack();
-        break;
-      }
-
-      if (Controller.ButtonEUp.pressing()) {
-        select2 -= 1;
-      }
-    }
+void charFloatConverter() {
+  ptrFlt = 0;
+  ptrFltRev = 0;
+  ptrFltConLen = trunc(log10(ptrFltCon)) + 1;
+  
+  while (ptrFltConLen != 0) {
+    ptrFltConTemp = ptrFltCon % 10;
+    ptrFltRev += ptrFltConTemp;
+    ptrFltRev *= 10;
+    ptrFltConLen -= 1;
+    ptrFltCon = (ptrFltCon - ptrFltConTemp) / 10;
+    wait(5,msec);
   }
+  
+  ptrFltRev /= 10;
+  ptrFltConLen = trunc(log10(ptrFltRev)) + 1;
+
+  while (ptrFltConLen != 0) {
+    ptrFltConTemp = ptrFltRev % 10;
+    ptrFlt += ptrFltConTemp;
+    ptrFlt *= 10;
+    ptrFltConLen -= 1;
+    ptrFltRev = (ptrFltRev - ptrFltConTemp) / 10;
+    wait(5,msec);
+  }
+  
+  ptrFlt /= 10;
 }
 
 void playBack() {
   recStartTime = 0; //change zero to start time shown in recording program.
   latency = 0; //makes the timer take longer to start.
-  arrCount = 0;
-  arrLen = sizeof(arr)/sizeof(arr[0]);
+  char*ptr;
+  ptr = strtok(infoChar, ",");
+  
   while (true) {
-    if (autoOn) {
-      if (!Booty) {
-        Catapult.spin(forward);
-      }
-      else {
-        if (!catapultSpinning) {
-          Catapult.stop();
-        }
-      }
-    }
     if (Controller.ButtonEUp.pressing()) {
       startTime = vex::timer::system();
-      arrCount = 0;
       replayOn = true;
     }
+
     if (replayOn) {
-      if (arr[arrCount] = 1) {
-        if (arrCount >= arrLen) {
-          replayOn = false;
-          arrCount = 0;
-          loadInterface();
-        }
-        waitUntil((arr[arrCount + 1] - recStartTime) == (vex::timer::system() - startTime - latency))
-        catapultSpinning = true;
-        Catapult.spin(forward);
-        arrCount += 2;
+      ptrFltCon = (int)strtod(ptr,NULL);
+      charFloatConverter();
+      ptrFltSave = ptrFlt;
+
+      if (ptrFltSave == 1) {
+        ptr = strtok(NULL, ",");
+        charFloatConverter();
+        waitUntil((ptrFlt - recStartTime) >= (vex::timer::system() - startTime - latency));
+        //movement here
       }
-      if (arr[arrCount] = 2) {
-        if (arrCount >= arrLen) {
-          replayOn = false;
-          arrCount = 0;
-          loadInterface();
-        }
-        waitUntil((arr[arrCount + 1] - recStartTime) == (vex::timer::system() - startTime - latency))
-        Catapult.spin(reverse);
-        arrCount += 2;
+      if (ptrFltSave == 2) {
+        ptr = strtok(NULL, ",");
+        charFloatConverter();
+        waitUntil((ptrFlt - recStartTime) >= (vex::timer::system() - startTime - latency));
+        //movement here
       }
-      if (arr[arrCount] = 3) {
-        if (arrCount >= arrLen) {
-          replayOn = false;
-          arrCount = 0;
-          loadInterface();
-        }
-        waitUntil((arr[arrCount + 1] - recStartTime) == (vex::timer::system() - startTime - latency))
-        Intake.spin(forward);
-        arrCount += 2;
+      if (ptrFltSave == 3) {
+        ptr = strtok(NULL, ",");
+        charFloatConverter();
+        waitUntil((ptrFlt - recStartTime) >= (vex::timer::system() - startTime - latency));
+        //movement here
       }
-      if (arr[arrCount] = 4) {
-        if (arrCount >= arrLen) {
-          replayOn = false;
-          arrCount = 0;
-          loadInterface();
-        }
-        waitUntil((arr[arrCount + 1] - recStartTime) == (vex::timer::system() - startTime - latency))
-        Intake.spin(reverse);
-        arrCount += 2;
+      if (ptrFltSave == 4) {
+        ptr = strtok(NULL, ",");
+        charFloatConverter();
+        waitUntil((ptrFlt - recStartTime) >= (vex::timer::system() - startTime - latency));
+        //movement here
       }
-      if (arr[arrCount] = 5) {
-        if (arrCount >= arrLen) {
-          replayOn = false;
-          arrCount = 0;
-          loadInterface();
-        }
-        waitUntil((arr[arrCount + 1] - recStartTime) == (vex::timer::system() - startTime - latency))
-        autoOn = false;
-        arrCount += 2;
+      if (ptrFltSave == 6) {
+        ptr = strtok(NULL, ",");
+        charFloatConverter();
+        waitUntil((ptrFlt - recStartTime) >= (vex::timer::system() - startTime - latency));
+        //movement here
       }
-      if (arr[arrCount] = 6) {
-        if (arrCount >= arrLen) {
-          replayOn = false;
-          arrCount = 0;
-          loadInterface();
-        }
-        waitUntil((arr[arrCount + 1] - recStartTime) == (vex::timer::system() - startTime - latency))
-        autoOn = true;
-        arrCount += 2;
+      if (ptrFltSave == 7) {
+        ptr = strtok(NULL, ",");
+        charFloatConverter();
+        waitUntil((ptrFlt - recStartTime) >= (vex::timer::system() - startTime - latency));
+        //movement here
       }
-      if (arr[arrCount] = 7) {
-        if (arrCount >= arrLen) {
-          replayOn = false;
-          arrCount = 0;
-          loadInterface();
-        }
-       waitUntil((arr[arrCount + 1] - recStartTime) == (vex::timer::system() - startTime - latency))
-        //robot movement here
-        arrCount += 2;
+      if (ptrFltSave == 8) {
+        ptr = strtok(NULL, ",");
+        charFloatConverter();
+        waitUntil((ptrFlt - recStartTime) >= (vex::timer::system() - startTime - latency));
+        //movement here
       }
-      if (arr[arrCount] = 8) {
-        if (arrCount >= arrLen) {
-          replayOn = false;
-          arrCount = 0;
-          loadInterface();
-        }
-        waitUntil((arr[arrCount + 1] - recStartTime) == (vex::timer::system() - startTime - latency))
-        //robot movement here
-        arrCount += 2;
+      if (ptrFltSave == 13) {
+        ptr = strtok(NULL, ",");
+        charFloatConverter();
+        waitUntil((ptrFlt - recStartTime) >= (vex::timer::system() - startTime - latency));
+        //movement here
       }
-      if (arr[arrCount] = 9) {
-        if (arrCount >= arrLen) {
-          replayOn = false;
-          arrCount = 0;
-          loadInterface();
-        }
-        waitUntil((arr[arrCount + 1] - recStartTime) == (vex::timer::system() - startTime - latency))
-        LeftDriveSmart.spin(forward);
-        arrCount += 2;
+      if (ptrFltSave == 14) {
+        ptr = strtok(NULL, ",");
+        charFloatConverter();
+        waitUntil((ptrFlt - recStartTime) >= (vex::timer::system() - startTime - latency));
+        //movement here
       }
-      if (arr[arrCount] = 10) {
-        if (arrCount >= arrLen) {
-          replayOn = false;
-          arrCount = 0;
-          loadInterface();
-        }
-        waitUntil((arr[arrCount + 1] - recStartTime) == (vex::timer::system() - startTime - latency))
-        RightDriveSmart.spin(forward);
-        arrCount += 2;
+      if (ptrFltSave == 15) {
+        ptr = strtok(NULL, ",");
+        charFloatConverter();
+        waitUntil((ptrFlt - recStartTime) >= (vex::timer::system() - startTime - latency));
+        //movement here
       }
-      if (arr[arrCount] = 11) {
-        if (arrCount >= arrLen) {
-          replayOn = false;
-          arrCount = 0;
-          loadInterface();
-        }
-        waitUntil((arr[arrCount + 1] - recStartTime) == (vex::timer::system() - startTime - latency))
+      if (ptrFltSave == 16) {
+        ptr = strtok(NULL, ",");
+        charFloatConverter();
+        waitUntil((ptrFlt - recStartTime) >= (vex::timer::system() - startTime - latency));
+        //movement here
+      }
+      if (ptrFltSave == 18) {
+        ptr = strtok(NULL, ",");
+        charFloatConverter();
+        waitUntil((ptrFlt - recStartTime) >= (vex::timer::system() - startTime - latency));
+        //movement here
+      }
+      if (ptrFltSave == 19) {
+        ptr = strtok(NULL, ",");
+        charFloatConverter();
+        waitUntil((ptrFlt - recStartTime) >= (vex::timer::system() - startTime - latency));
+        //movement here
+      }
+      if (ptrFltSave == 20) {
+        ptr = strtok(NULL, ",");
+        charFloatConverter();
+        waitUntil((ptrFlt - recStartTime) >= (vex::timer::system() - startTime - latency));
+        //movement here
+      }
+
+      //Left Drivetrain
+      if (ptrFltSave == 25) {
+        ptr = strtok(NULL, ",");
+        charFloatConverter();
+        waitUntil((ptrFlt - recStartTime) >= (vex::timer::system() - startTime - latency));
+        LeftDriveSmart.setVelocity(100, percent);
         LeftDriveSmart.spin(reverse);
-        arrCount += 2;
       }
-      if (arr[arrCount] = 12) {
-        if (arrCount >= arrLen) {
-          replayOn = false;
-          arrCount = 0;
-          loadInterface();
-        }
-        waitUntil((arr[arrCount + 1] - recStartTime) == (vex::timer::system() - startTime - latency))
+      if (ptrFltSave == 26) {
+        ptr = strtok(NULL, ",");
+        charFloatConverter();
+        waitUntil((ptrFlt - recStartTime) >= (vex::timer::system() - startTime - latency));
+        LeftDriveSmart.setVelocity(82, percent);
+        LeftDriveSmart.spin(reverse);
+      }
+      if (ptrFltSave == 27) {
+        ptr = strtok(NULL, ",");
+        charFloatConverter();
+        waitUntil((ptrFlt - recStartTime) >= (vex::timer::system() - startTime - latency));
+        LeftDriveSmart.setVelocity(49, percent);
+        LeftDriveSmart.spin(reverse);
+      }
+      if (ptrFltSave == 28) {
+        ptr = strtok(NULL, ",");
+        charFloatConverter();
+        waitUntil((ptrFlt - recStartTime) >= (vex::timer::system() - startTime - latency));
+        LeftDriveSmart.setVelocity(16, percent);
+        LeftDriveSmart.spin(reverse);
+      }
+      if (ptrFltSave == 29) {
+        ptr = strtok(NULL, ",");
+        charFloatConverter();
+        waitUntil((ptrFlt - recStartTime) >= (vex::timer::system() - startTime - latency));
+        LeftDriveSmart.setVelocity(0, percent);
+        LeftDriveSmart.stop();
+      }
+      if (ptrFltSave == 30) {
+        ptr = strtok(NULL, ",");
+        charFloatConverter();
+        waitUntil((ptrFlt - recStartTime) >= (vex::timer::system() - startTime - latency));
+        LeftDriveSmart.setVelocity(16, percent);
+        LeftDriveSmart.spin(forward);
+      }
+      if (ptrFltSave == 31) {
+        ptr = strtok(NULL, ",");
+        charFloatConverter();
+        waitUntil((ptrFlt - recStartTime) >= (vex::timer::system() - startTime - latency));
+        LeftDriveSmart.setVelocity(49, percent);
+        LeftDriveSmart.spin(forward);
+      }
+      if (ptrFltSave == 32) {
+        ptr = strtok(NULL, ",");
+        charFloatConverter();
+        waitUntil((ptrFlt - recStartTime) >= (vex::timer::system() - startTime - latency));
+        LeftDriveSmart.setVelocity(82, percent);
+        LeftDriveSmart.spin(forward);
+      }
+      if (ptrFltSave == 33) {
+        ptr = strtok(NULL, ",");
+        charFloatConverter();
+        waitUntil((ptrFlt - recStartTime) >= (vex::timer::system() - startTime - latency));
+        LeftDriveSmart.setVelocity(100, percent);
+        LeftDriveSmart.spin(forward);
+      }
+
+      //Right Drivetrain
+      if (ptrFltSave == 34) {
+        ptr = strtok(NULL, ",");
+        charFloatConverter();
+        waitUntil((ptrFlt - recStartTime) >= (vex::timer::system() - startTime - latency));
+        RightDriveSmart.setVelocity(-100, percent);
         RightDriveSmart.spin(reverse);
-        arrCount += 2;
       }
-      if (arr[arrCount] = 13) {
-        if (arrCount >= arrLen) {
-          replayOn = false;
-          arrCount = 0;
-          loadInterface();
-        }
-        waitUntil((arr[arrCount + 1] - recStartTime) == (vex::timer::system() - startTime - latency))
-        catapultSpinning = false;
-        arrCount += 2;
+      if (ptrFltSave == 35) {
+        ptr = strtok(NULL, ",");
+        charFloatConverter();
+        waitUntil((ptrFlt - recStartTime) >= (vex::timer::system() - startTime - latency));
+        RightDriveSmart.setVelocity(82, percent);
+        RightDriveSmart.spin(reverse);
       }
-      if (arr[arrCount] = 14) {
-        if (arrCount >= arrLen) {
-          replayOn = false;
-          arrCount = 0;
-          loadInterface();
-        }
-        waitUntil((arr[arrCount + 1] - recStartTime) == (vex::timer::system() - startTime - latency))
-        Catapult.stop();
-        arrCount += 2;
+      if (ptrFltSave == 36) {
+        ptr = strtok(NULL, ",");
+        charFloatConverter();
+        waitUntil((ptrFlt - recStartTime) >= (vex::timer::system() - startTime - latency));
+        RightDriveSmart.setVelocity(49, percent);
+        RightDriveSmart.spin(reverse);
       }
-      if (arr[arrCount] = 15) {
-        if (arrCount >= arrLen) {
-          replayOn = false;
-          arrCount = 0;
-          loadInterface();
-        }
-        waitUntil((arr[arrCount + 1] - recStartTime) == (vex::timer::system() - startTime - latency))
-        Intake.stop();
-        arrCount += 2;
+      if (ptrFltSave == 37) {
+        ptr = strtok(NULL, ",");
+        charFloatConverter();
+        waitUntil((ptrFlt - recStartTime) >= (vex::timer::system() - startTime - latency));
+        RightDriveSmart.setVelocity(16, percent);
+        RightDriveSmart.spin(reverse);
       }
-      if (arr[arrCount] = 16) {
-        if (arrCount >= arrLen) {
-          replayOn = false;
-          arrCount = 0;
-          loadInterface();
-        }
-        waitUntil((arr[arrCount + 1] - recStartTime) == (vex::timer::system() - startTime - latency))
-        Intake.stop();
-        arrCount += 2;
+      if (ptrFltSave == 38) {
+        ptr = strtok(NULL, ",");
+        charFloatConverter();
+        waitUntil((ptrFlt - recStartTime) >= (vex::timer::system() - startTime - latency));
+        RightDriveSmart.setVelocity(0, percent);
+        RightDriveSmart.stop();
       }
-      if (arr[arrCount] = 17) {
-        if (arrCount >= arrLen) {
-          replayOn = false;
-          arrCount = 0;
-          loadInterface();
-        }
-        waitUntil((arr[arrCount + 1] - recStartTime) == (vex::timer::system() - startTime - latency))
-        //robot movement here
-        arrCount += 2;
+      if (ptrFltSave == 39) {
+        ptr = strtok(NULL, ",");
+        charFloatConverter();
+        waitUntil((ptrFlt - recStartTime) >= (vex::timer::system() - startTime - latency));
+        RightDriveSmart.setVelocity(16, percent);
+        RightDriveSmart.spin(forward);
       }
-      if (arr[arrCount] = 18) {
-        if (arrCount >= arrLen) {
-          replayOn = false;
-          arrCount = 0;
-          loadInterface();
-        }
-        waitUntil((arr[arrCount + 1] - recStartTime) == (vex::timer::system() - startTime - latency))
-        //robot movement here
-        arrCount += 2;
+      if (ptrFltSave == 40) {
+        ptr = strtok(NULL, ",");
+        charFloatConverter();
+        waitUntil((ptrFlt - recStartTime) >= (vex::timer::system() - startTime - latency));
+        RightDriveSmart.setVelocity(49, percent);
+        RightDriveSmart.spin(forward);
       }
-      if (arr[arrCount] = 19) {
-        if (arrCount >= arrLen) {
-          replayOn = false;
-          arrCount = 0;
-          loadInterface();
-        }
-        waitUntil((arr[arrCount + 1] - recStartTime) == (vex::timer::system() - startTime - latency))
-        //robot movement here
-        arrCount += 2;
+      if (ptrFltSave == 41) {
+        ptr = strtok(NULL, ",");
+        charFloatConverter();
+        waitUntil((ptrFlt - recStartTime) >= (vex::timer::system() - startTime - latency));
+        RightDriveSmart.setVelocity(82, percent);
+        RightDriveSmart.spin(forward);
       }
-      if (arr[arrCount] = 20) {
-        if (arrCount >= arrLen) {
-          replayOn = false;
-          arrCount = 0;
-          loadInterface();
-        }
-        waitUntil((arr[arrCount + 1] - recStartTime) == (vex::timer::system() - startTime - latency))
-        //robot movement here
-        arrCount += 2;
+      if (ptrFltSave == 42) {
+        ptr = strtok(NULL, ",");
+        charFloatConverter();
+        waitUntil((ptrFlt - recStartTime) >= (vex::timer::system() - startTime - latency));
+        RightDriveSmart.setVelocity(100, percent);
+        RightDriveSmart.spin(forward);
       }
+    ptr = strtok(NULL, ",");
     }
   }
-  return 0;
 }
 
 int main() {
-  loadInterface();
+  playBack();
 }
