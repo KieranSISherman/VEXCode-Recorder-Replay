@@ -19,7 +19,7 @@ After you record some driving, the SD card will have two text documentz on it ca
 # Button Input List
 Below shows what button input it equal to what number:
 
-Buttons:
+### Buttons:
 
 - Button R Up Pressed = 1 .............. Button R Up Released = 13 
 - Button R Down Pressed = 2 ........ Button R Down Released = 14
@@ -43,7 +43,7 @@ Buttons:
 - Joystick Axis A >66% >99% = 32
 - Joystick Axis A 100% = 33
 
-Joystick Axis D:
+### Joystick Axis D:
 - Joystick Axis D -100% = 34
 - Joystick Axis D >-66% <-99% = 35
 - Joystick Axis D >-33% <-66% = 36
