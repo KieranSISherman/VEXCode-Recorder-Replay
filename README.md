@@ -32,7 +32,7 @@ Buttons:
 - Button R3 Pressed = 9 .................. Button R3 Released = 10
 - Button L3 Pressed = 10 ................ Button L3 Released = 12
 
-Joysticks Axis A:
+## Joysticks Axis A:
 - Joystick Axis A -100% = 25
 - Joystick Axis A >-66% <-99% = 26
 - Joystick Axis A >-33% <-66% = 27
