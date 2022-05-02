@@ -33,51 +33,23 @@ Buttons:
 - Button L3 Pressed = 10 ................ Button L3 Released = 12
 
 Joysticks Axis A:
-- Joystick Axis A -100 = 25
-- Joystick Axis A -90 = 26
-- Joystick Axis A -80 = 27
-- Joystick Axis A -70 = 28
-- Joystick Axis A -60 = 29
-- Joystick Axis A -50 = 30
-- Joystick Axis A -40 = 31
-- Joystick Axis A -30 = 32
-- Joystick Axis A -20 = 33
-- Joystick Axis A -10 = 34
-- Joystick Axis A -0.1 = 35
-- Joystick Axis A 0 = 36
-- Joystick Axis A 0.1 = 37
-- Joystick Axis A 10 = 38
-- Joystick Axis A 20 = 39
-- Joystick Axis A 30 = 40
-- Joystick Axis A 40 = 41
-- Joystick Axis A 50 = 42
-- Joystick Axis A 60 = 43
-- Joystick Axis A 70 = 44
-- Joystick Axis A 80 = 45
-- Joystick Axis A 90 = 46
-- Joystick Axis A 100 = 47
+- Joystick Axis A -100% = 25
+- Joystick Axis A >-66% <-99% = 26
+- Joystick Axis A >-33% <-66% = 27
+- Joystick Axis A >0% <-33% = 28
+- Joystick Axis A 0% = 29
+- Joystick Axis A >0% <33% = 30
+- Joystick Axis A >33% <66% = 31
+- Joystick Axis A >66% >99% = 32
+- Joystick Axis A 100% = 33
 
-Joysticks Axis D:
-- Joystick Axis D -100 = 48
-- Joystick Axis D -90 = 49
-- Joystick Axis D -80 = 50
-- Joystick Axis D -70 = 51
-- Joystick Axis D -60 = 52
-- Joystick Axis D -50 = 53
-- Joystick Axis D -40 = 54
-- Joystick Axis D -30 = 55
-- Joystick Axis D -20 = 56
-- Joystick Axis D -10 = 57
-- Joystick Axis D -0.1 = 58
-- Joystick Axis D 0 = 59
-- Joystick Axis D 0.1 = 60
-- Joystick Axis D 10 = 61
-- Joystick Axis D 20 = 62
-- Joystick Axis D 30 = 63
-- Joystick Axis D 40 = 64
-- Joystick Axis D 50 = 65
-- Joystick Axis D 60 = 66
-- Joystick Axis D 70 = 67
-- Joystick Axis D 80 = 68
-- Joystick Axis D 90 = 69
-- Joystick Axis D 100 = 70
+Joystick Axis D:
+- Joystick Axis D -100% = 34
+- Joystick Axis D >-66% <-99% = 35
+- Joystick Axis D >-33% <-66% = 36
+- Joystick Axis D >0% <-33% = 37
+- Joystick Axis D 0% = 38
+- Joystick Axis D >0% <33% = 39
+- Joystick Axis D >33% <66% = 40
+- Joystick Axis D >66% <99% = 41
+- Joystick Axis D 100% = 42
