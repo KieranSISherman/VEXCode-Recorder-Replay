@@ -30,7 +30,7 @@ Below shows what button input it equal to what number:
 - Button E Up Pressed = 7 .............. Button E Up Released = 19
 - Button E Down Pressed = 8 ........ Button E Down Released = 20
 - Button R3 Pressed = 9 .................. Button R3 Released = 10
-- Button L3 Pressed = 10 ................ Button L3 Released = 12
+- Button L3 Pressed = 11 ................ Button L3 Released = 12
 
 ### Joysticks Axis A:
 - Joystick Axis A -100% = 25
