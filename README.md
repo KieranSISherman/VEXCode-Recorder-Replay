@@ -72,6 +72,6 @@ When setting up the replay program, you have to go through and add what function
 - Button Up Pressed = 17 .................... Button Up Released = 18
 - Button Right Pressed = 19 ............... Button Right Released = 20
 - Button Down Pressed = 21 .............. Button Down Released = 22
-- Button Left Pressed = 23 ................. Button Left Released = 24
+- Button Left Pressed = 23 .................. Button Left Released = 24
 
 *Joystick input are saved from -100 to 100 for each joystick.*
