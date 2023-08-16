@@ -61,7 +61,7 @@ Generation 3 moves from using C++ *(which im not very good at)* to using Python 
 When setting up the replay program, you have to go through and add what functions each button has so the replay has something to execute. After that, you do not need to touch the code again; it will automatically import the saved information from the SD card and run it. When adding the drivetrain use a single motor or motor group and name the left side of the drivetrain "leftDrive" and the right side "rightDrive". If the driving is being weird you need to reverse one or both of the motors/motor groups.
 
 ### Buttons:
-- Button R1 Pressed = 1 .................. Button R1 Released = 2
+- Button R1 Pressed = 1 ..................... Button R1 Released = 2
 - Button R2 Pressed = 3 .................. Button R2 Released = 4
 - Button L1 Pressed = 5 .................. Button L1 Released = 6
 - Button L2 Pressed = 7 .................. Button L2 Released = 8
